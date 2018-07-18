@@ -10,21 +10,21 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        tools:context="devdeeds.com.kotlinsplashscreen.SplashActivity">
+        android:background="#fbe300"
+        tools:context="devdeeds.com.kotlinsplashscreen.SplashActivity"
+        tools:layout_editor_absoluteX="180dp"
+        tools:layout_editor_absoluteY="203dp">
 
         <!-- The primary full-screen view. This can be replaced with whatever view
              is needed to present your content, e.g. VideoView, SurfaceView,
              TextureView, etc. -->
-        <TextView
-            android:id="@+id/fullscreen_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:keepScreenOn="true"
-            android:text="Hello World"
-            android:textColor="#000"
-            android:textSize="25sp" />
 
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="155dp"
+            android:layout_height="155dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/splash_test" />
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

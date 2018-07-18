@@ -4,31 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fbe300"
     tools:context=".LoginActivity">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="272dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="247dp"
-        android:visibility="visible"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginStart="24dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/editID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="#ffffff"
+            android:ems="10"
+            android:hint="ID"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="51dp"
+            tools:layout_editor_absoluteY="149dp" />
+
+        <EditText
+            android:id="@+id/editPW"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="#ffffff"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="70dp"
             android:text="Button"
             tools:layout_editor_absoluteX="148dp"
             tools:layout_editor_absoluteY="164dp" />
-    </FrameLayout>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
