@@ -10,7 +10,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fbe300"
+        android:background="@drawable/gbg"
         tools:context="devdeeds.com.kotlinsplashscreen.SplashActivity"
         tools:layout_editor_absoluteX="180dp"
         tools:layout_editor_absoluteY="203dp">
@@ -20,11 +20,5 @@
              TextureView, etc. -->
 
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="155dp"
-            android:layout_height="155dp"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/splash_test" />
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>
