@@ -1,13 +1,19 @@
 package com.study.rev.androidrevolution
 
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.NotificationCompat
 import android.support.v7.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    val MusicNotificationID : Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,16 +29,46 @@ class MainActivity : AppCompatActivity() {
             var intent = Intent(this, MusicService::class.java)
             intent.putExtra("isPlay", true)
             startService(intent)
+            musicNotification(true)
         }
 
         btnStop.setOnClickListener {
             var intent = Intent(this, MusicService::class.java)
             intent.putExtra("isPlay", false)
             startService(intent)
+            musicNotification(false)
         }
 
         btnExit.setOnClickListener{
             exitDialog()
+        }
+    }
+
+    private fun musicNotification(isPlay : Boolean)
+    {
+        var manager : NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val NOTIFICATION_CHANNEL_ID = "my_channel_id_01"
+        val notificationBuilder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+        var intent = Intent(this,MainActivity::class.java)
+        var pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        if (isPlay) {
+            notificationBuilder.setAutoCancel(true)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.drawable.ic_launcher_background)
+                    .setContentTitle("유희왕 오프닝")
+                    .setContentText("음악 재생 중")
+                    .setAutoCancel(false)
+                    .setSound(null)
+                    .setVibrate(null)
+                    .setContentIntent(pendingIntent).build()
+            notificationBuilder.setDefaults(0)
+
+            manager.notify(MusicNotificationID, notificationBuilder.build())
+        }
+        else {
+            manager.cancel(MusicNotificationID)
         }
     }
 
