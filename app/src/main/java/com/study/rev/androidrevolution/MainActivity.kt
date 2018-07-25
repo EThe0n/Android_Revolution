@@ -1,8 +1,10 @@
 package com.study.rev.androidrevolution
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -28,5 +30,25 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("isPlay", false)
             startService(intent)
         }
+
+        btnExit.setOnClickListener{
+            exitDialog()
+        }
     }
+
+    private fun exitDialog()
+    {
+        var builder : AlertDialog.Builder = AlertDialog.Builder(this)
+
+        builder.setTitle("영락없이")
+        builder.setMessage("bang bang?")
+        builder.setPositiveButton("BAAAM", { dialog, whichButton ->
+            finish()
+            System.exit(0)
+        })
+        builder.setNegativeButton("반동이다", {dialog, whichButton -> })
+
+        builder.show()
+    }
+
 }

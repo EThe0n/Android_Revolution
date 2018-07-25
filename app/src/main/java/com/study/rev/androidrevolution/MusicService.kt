@@ -17,12 +17,14 @@ class MusicService : Service() {
         var isPlay = intent!!.getBooleanExtra("isPlay", false)
 
         if (isPlay) {
+            if (player.isPlaying) {
+                player.release()
+            }
             player = MediaPlayer.create(this, R.raw.yugioh)
             player.start()
         }
         else {
             player.stop()
-            player.release()
         }
 
         return START_NOT_STICKY

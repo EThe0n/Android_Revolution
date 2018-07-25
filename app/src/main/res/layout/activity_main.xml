@@ -42,4 +42,12 @@
             android:layout_height="wrap_content"
             android:text="Stop" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X"
+        tools:layout_editor_absoluteX="288dp"
+        tools:layout_editor_absoluteY="16dp" />
 </android.support.constraint.ConstraintLayout>
