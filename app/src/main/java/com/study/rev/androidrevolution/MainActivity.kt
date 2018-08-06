@@ -1,90 +1,88 @@
 package com.study.rev.androidrevolution
 
-import android.app.Notification
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.NotificationCompat
-import android.support.v7.app.AlertDialog
+import android.support.design.widget.Snackbar
+import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity() {
-    val MusicNotificationID : Int = 1
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
-        val id = intent.getStringExtra("ID")
-        val pw = intent.getStringExtra("PW")
-
-        t1.text = "당신의 ID는 ${id}입니다."
-        t2.text = "비밀번호는 ${pw}군요"
-
-        btnPlay.setOnClickListener{
-            var intent = Intent(this, MusicService::class.java)
-            intent.putExtra("isPlay", true)
-            startService(intent)
-            musicNotification(true)
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
         }
 
-        btnStop.setOnClickListener {
-            var intent = Intent(this, MusicService::class.java)
-            intent.putExtra("isPlay", false)
-            startService(intent)
-            musicNotification(false)
-        }
+        val toggle = ActionBarDrawerToggle(
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
 
-        btnExit.setOnClickListener{
-            exitDialog()
+        nav_view.setNavigationItemSelectedListener(this)
+
+        nav_view.setCheckedItem(R.id.nav_home)
+        displaySelectedFragment(HomeFragment())
+    }
+
+    override fun onBackPressed() {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
         }
     }
 
-    private fun musicNotification(isPlay : Boolean)
-    {
-        var manager : NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val NOTIFICATION_CHANNEL_ID = "my_channel_id_01"
-        val notificationBuilder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-        var intent = Intent(this,MainActivity::class.java)
-        var pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
 
-        if (isPlay) {
-            notificationBuilder.setAutoCancel(true)
-                    .setDefaults(Notification.DEFAULT_ALL)
-                    .setWhen(System.currentTimeMillis())
-                    .setSmallIcon(R.drawable.ic_launcher_background)
-                    .setContentTitle("유희왕 오프닝")
-                    .setContentText("음악 재생 중")
-                    .setAutoCancel(false)
-                    .setSound(null)
-                    .setVibrate(null)
-                    .setContentIntent(pendingIntent).build()
-            notificationBuilder.setDefaults(0)
-
-            manager.notify(MusicNotificationID, notificationBuilder.build())
-        }
-        else {
-            manager.cancel(MusicNotificationID)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        when (item.itemId) {
+            R.id.action_settings -> return true
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 
-    private fun exitDialog()
-    {
-        var builder : AlertDialog.Builder = AlertDialog.Builder(this)
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_home -> displaySelectedFragment(HomeFragment())
+            R.id.nav_gallery -> displaySelectedFragment(GalleryFragment())
+            R.id.nav_videos -> displaySelectedFragment(VideosFragment())
+            R.id.nav_settings -> displaySelectedFragment(SettingsFragment())
+            R.id.nav_share -> {
+                var sharingIntent : Intent = Intent(Intent.ACTION_SEND)
+                sharingIntent.type = NavigationDrawerConstants.SHARE_TEXT_TYPE
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, NavigationDrawerConstants.SHARE_TITLE)
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, NavigationDrawerConstants.SHARE_MESSAGE)
+                startActivity(Intent.createChooser(sharingIntent, NavigationDrawerConstants.SHARE_VIA))
+            }
+        }
 
-        builder.setTitle("영락없이")
-        builder.setMessage("bang bang?")
-        builder.setPositiveButton("BAAAM", { dialog, whichButton ->
-            finish()
-            System.exit(0)
-        })
-        builder.setNegativeButton("반동이다", {dialog, whichButton -> })
-
-        builder.show()
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
     }
 
+    private fun displaySelectedFragment(fragment : Fragment) {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.frame, fragment)
+                .commit()
+    }
 }
