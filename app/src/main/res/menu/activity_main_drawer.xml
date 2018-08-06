@@ -9,9 +9,9 @@
             android:icon="@mipmap/ic_home"
             android:title="Home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_cafe"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Cafe" />
         <item
             android:id="@+id/nav_videos"
             android:icon="@drawable/ic_menu_slideshow"

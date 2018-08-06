@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> displaySelectedFragment(HomeFragment())
-            R.id.nav_gallery -> displaySelectedFragment(GalleryFragment())
+            R.id.nav_cafe -> displaySelectedFragment(CafeFragment())
             R.id.nav_videos -> displaySelectedFragment(VideosFragment())
             R.id.nav_settings -> displaySelectedFragment(SettingsFragment())
             R.id.nav_share -> {

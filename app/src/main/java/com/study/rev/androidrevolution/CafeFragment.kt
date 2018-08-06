@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class GalleryFragment : Fragment() {
+class CafeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity?.title = NavigationDrawerConstants.TAG_GALLERY
+        activity?.title = NavigationDrawerConstants.TAG_CAFE
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
