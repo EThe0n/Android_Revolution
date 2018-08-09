@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
-import kotlinx.android.synthetic.main.fragment_gallery.*
 import android.webkit.WebView
 
 
@@ -23,7 +22,7 @@ class CafeFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view : View? = inflater.inflate(R.layout.fragment_gallery, container, false)
+        var view : View? = inflater.inflate(R.layout.fragment_cafe, container, false)
 
         //왭 설정
         val webView = view!!.findViewById<WebView>(R.id.webView)
