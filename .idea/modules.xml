@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/And_Proj.iml" filepath="$PROJECT_DIR$/And_Proj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Android_Revolution.iml" filepath="$PROJECT_DIR$/Android_Revolution.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
