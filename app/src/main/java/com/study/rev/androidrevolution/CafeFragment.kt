@@ -1,5 +1,8 @@
 package com.study.rev.androidrevolution
 
+
+import android.app.Activity
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,7 +15,7 @@ import android.webkit.WebView
 
 
 
-class CafeFragment : Fragment() {
+class CafeFragment : Fragment() ,onKeyBackPressedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +72,27 @@ class CafeFragment : Fragment() {
         // UMLView.text = webView.url
 
 
+
+
         return view
+    }
+
+    override fun onBack() {
+        val webView = view!!.findViewById<WebView>(R.id.webView)
+        if(webView.canGoBack()) {
+            webView.goBack()
+        }
+        else{
+            val mMainActivity =  activity as MainActivity
+            mMainActivity.setOnKeyBackPressedListener(null)
+            mMainActivity.onBackPressed()
+        }
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        var MainActivity =  activity as MainActivity
+        MainActivity.setOnKeyBackPressedListener(this)
     }
 
     override fun onResume() {
@@ -89,5 +112,6 @@ class CafeFragment : Fragment() {
         super.onPause()
 
     }
+
 
 }

@@ -10,11 +10,15 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    val FINISH_INTERVAL_TIME = 2000;
+    private var  backPressedTime : Long = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,14 +39,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         displaySelectedFragment(HomeFragment())
     }
-
-    override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
+    private var  mOnKeyBackPressedListener:onKeyBackPressedListener? = null
+    fun  setOnKeyBackPressedListener(listener:onKeyBackPressedListener?) {
+        mOnKeyBackPressedListener = listener
     }
+    override fun onBackPressed() {
+
+        var tempTime :Long= System.currentTimeMillis();
+        var intervalTime :Long = tempTime - backPressedTime;
+
+
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime)
+        {
+            super.onBackPressed();
+        }
+        else {
+            if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                drawer_layout.closeDrawer(GravityCompat.START)
+            }
+            else if (mOnKeyBackPressedListener != null) {
+                mOnKeyBackPressedListener?.onBack()
+            }
+            backPressedTime = tempTime;
+            Toast.makeText(getApplicationContext(), "한번 더 뒤로가기 누르면 꺼버린다.", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
