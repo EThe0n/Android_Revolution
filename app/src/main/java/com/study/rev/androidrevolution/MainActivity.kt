@@ -10,9 +10,9 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -27,8 +27,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-
         nav_view.setCheckedItem(R.id.nav_home)
+
+        var header = nav_view.getHeaderView(0)
+        header.textStudentNumber.text = intent.getStringExtra(LoginActivity.KEY_STUDENT_NUMBER)
+        header.textName.text = intent.getStringExtra(LoginActivity.KEY_NAME)
+
         displaySelectedFragment(HomeFragment())
     }
 

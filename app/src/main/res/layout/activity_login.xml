@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fbe300"
+    android:background="#87CEEB"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -16,32 +16,33 @@
         android:layout_marginRight="24dp"
         android:layout_marginStart="24dp"
         android:orientation="vertical"
+        android:background="#87CEEB"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/editID"
+            android:id="@+id/editStudentNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:background="#ffffff"
+            android:background="#ffffffff"
             android:ems="10"
-            android:hint="ID"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="51dp"
-            tools:layout_editor_absoluteY="149dp" />
+            android:hint="학번"
+            android:inputType="number"
+            tools:layout_editor_absoluteX="84dp"
+            tools:layout_editor_absoluteY="166dp" />
 
         <EditText
-            android:id="@+id/editPW"
+            android:id="@+id/editName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:background="#ffffff"
+            android:background="#ffffffff"
             android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword" />
+            android:hint="이름"
+            android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/loginButton"
