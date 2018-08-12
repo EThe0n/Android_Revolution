@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.nav_home -> displaySelectedFragment(HomeFragment())
             R.id.nav_cafe -> displaySelectedFragment(CafeFragment())
-            R.id.nav_videos -> displaySelectedFragment(ListFragment())
+            R.id.nav_list -> displaySelectedFragment(ListFragment())
             R.id.nav_settings -> displaySelectedFragment(SettingsFragment())
             R.id.nav_share -> {
                 var sharingIntent : Intent = Intent(Intent.ACTION_SEND)

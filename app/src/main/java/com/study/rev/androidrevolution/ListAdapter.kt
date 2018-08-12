@@ -1,7 +1,9 @@
 package com.study.rev.androidrevolution
 
 import android.content.Context
-import android.text.Layout
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +23,7 @@ class ListAdapter : ArrayAdapter<ListColumn>{
     override fun getView(pos : Int, convertView : View?, parent : ViewGroup) : View?{
         var view : View? = convertView
 
+
         if(view == null){
             var vi : LayoutInflater = con.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = vi.inflate(R.layout.list_column, null)
@@ -30,7 +33,12 @@ class ListAdapter : ArrayAdapter<ListColumn>{
 
         if(currentPointer != null){
             view?.view_name?.text = currentPointer.name
-            view?.view_isRent?.text = currentPointer.isRent
+            view?.view_subject?.text = currentPointer.subject
+            view?.view_borrower?.text = currentPointer.borrower
+
+            if(view?.view_borrower?.text != ""){
+                view?.setBackgroundColor(Color.parseColor("#FF0000"));
+            }
         }
 
         return view

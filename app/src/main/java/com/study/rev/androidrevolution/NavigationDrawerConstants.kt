@@ -4,7 +4,7 @@ class NavigationDrawerConstants {
     companion object {
         val TAG_HOME = "Home"
         val TAG_CAFE = "Cafe"
-        val TAG_VIDEOS = "Videos"
+        val TAG_LIST = "Book List"
         val TAG_SETTINGS = "Settings"
         val SITE_URL = "http://androiddeft.com"
         val SHARE_TITLE = "Android Development Tutorials"
