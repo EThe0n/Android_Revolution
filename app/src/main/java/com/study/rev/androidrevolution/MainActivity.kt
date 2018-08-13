@@ -15,6 +15,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.fragment_cafe.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -51,24 +52,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
     override fun onBackPressed() {
 
-        var tempTime :Long= System.currentTimeMillis();
-        var intervalTime :Long = tempTime - backPressedTime;
+        //var tempTime :Long= System.currentTimeMillis();
+        //var intervalTime :Long = tempTime - backPressedTime;
 
-
-        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime)
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        }
+        else if (mOnKeyBackPressedListener != null) {
+            mOnKeyBackPressedListener?.onBack()
+        }
+        else
         {
-            super.onBackPressed();
+            super.onBackPressed()
         }
-        else {
-            if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-                drawer_layout.closeDrawer(GravityCompat.START)
-            }
-            else if (mOnKeyBackPressedListener != null) {
-                mOnKeyBackPressedListener?.onBack()
-            }
-            backPressedTime = tempTime;
-            Toast.makeText(applicationContext, "한번 더 뒤로가기 누르면 꺼버린다.", Toast.LENGTH_SHORT).show()
-        }
+        ///backPressedTime = tempTime
+        //Toast.makeText(applicationContext, "한번 더 뒤로가기 누르면 꺼버린다.", Toast.LENGTH_SHORT).show()
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
