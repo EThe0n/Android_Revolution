@@ -61,12 +61,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 mOnKeyBackPressedListener?.onBack()
             }
             backPressedTime = tempTime;
-            Toast.makeText(getApplicationContext(), "한번 더 뒤로가기 누르면 꺼버린다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "한번 더 뒤로가기 누르면 꺼버린다.", Toast.LENGTH_SHORT).show()
         }
-
     }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -87,13 +84,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_cafe -> displaySelectedFragment(CafeFragment())
             R.id.nav_list -> displaySelectedFragment(ListFragment())
             R.id.nav_settings -> displaySelectedFragment(SettingsFragment())
-            R.id.nav_share -> {
-                var sharingIntent : Intent = Intent(Intent.ACTION_SEND)
-                sharingIntent.type = NavigationDrawerConstants.SHARE_TEXT_TYPE
-                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, NavigationDrawerConstants.SHARE_TITLE)
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, NavigationDrawerConstants.SHARE_MESSAGE)
-                startActivity(Intent.createChooser(sharingIntent, NavigationDrawerConstants.SHARE_VIA))
-            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
