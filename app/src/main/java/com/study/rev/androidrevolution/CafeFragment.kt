@@ -110,8 +110,5 @@ class CafeFragment : Fragment() ,onKeyBackPressedListener {
             CookieSyncManager.getInstance().stopSync()
         }
         super.onPause()
-
     }
-
-
 }
