@@ -19,6 +19,11 @@
              is needed to present your content, e.g. VideoView, SurfaceView,
              TextureView, etc. -->
 
-
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="314dp"
+            android:layout_height="314dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/logo2" />
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

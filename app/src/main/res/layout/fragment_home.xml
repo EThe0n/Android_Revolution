@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,13 +10,25 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.graphics.navigationdrawertest.HomeFragment">
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:context="com.example.graphics.navigationdrawertest.HomeFragment"
+        tools:layout_editor_absoluteX="0dp">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:src="@mipmap/ic_home" />
+            android:id="@+id/imageView3"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="50dp"
+            app:srcCompat="@drawable/logo1" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="255dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="420dp"
+            android:text="안녕하세요.\n경북대학교 게임 제작 동아리\n 레볼루션 입니다."
+            android:textSize="20dp" />
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>
