@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
+import android.os.Handler
 import android.os.SystemClock
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ListView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_list.*
 import org.json.JSONArray
 import org.json.JSONException
@@ -35,22 +37,25 @@ class ListFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         layout_btnSearch.setOnClickListener { View -> buttonClickHandler(view)}
-        layout_btnSearch.callOnClick()
 
-        var connMgr : ConnectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        var networkInfo : NetworkInfo = connMgr.activeNetworkInfo
+
+        var connMgr : ConnectivityManager? = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        var networkInfo : NetworkInfo? = connMgr?.activeNetworkInfo
 
         if(networkInfo != null && networkInfo.isConnected){
-            layout_btnSearch.setEnabled(true)
+            layout_btnSearch.isClickable = true
+            layout_btnSearch.callOnClick()
         }
         else{
-            layout_btnSearch.setEnabled(false)
+            layout_btnSearch.isClickable = false
+            Toast.makeText(getActivity(), "네트워크에 연결되어있지 않습니다.", Toast.LENGTH_SHORT).show()
         }
     }
 
     fun buttonClickHandler(view : View){
-
+        layout_btnSearch.isClickable = false
         listSet.clear()
+        layout_listview.adapter = null
 
         DownloadWebpageTask(object : AsyncResult{
             override fun onResult(obj: JSONObject) {
@@ -80,8 +85,11 @@ class ListFragment : Fragment(){
             var adapter : ListAdapter = ListAdapter(this.context, R.layout.list_column, listSet)
             layout_listview.adapter = adapter
 
+
         }catch (e : JSONException){
             e.printStackTrace()
+        }finally {
+            layout_btnSearch.isClickable = true
         }
     }
 

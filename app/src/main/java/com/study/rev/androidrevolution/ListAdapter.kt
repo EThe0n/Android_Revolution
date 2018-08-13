@@ -16,6 +16,7 @@ class ListAdapter : ArrayAdapter<ListColumn>{
 
     constructor(con : Context?, textViewResourceId : Int, items : ArrayList<ListColumn>):
             super(con, textViewResourceId, items){
+        this.notifyDataSetChanged()
         this.con = context
         this.listSet = items
     }
