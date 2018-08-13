@@ -6,27 +6,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.example.graphics.navigationdrawertest.SettingsFragment">
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="상태메세지 설정" />
+
+        <EditText
+            android:id="@+id/editStatusMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/btnAssign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="상태메세지"
+            android:text="적용하기" />
 
         <Button
             android:id="@+id/btnSignOut"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Sign Out" />
-    </FrameLayout>
+            android:text="로그아웃"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="260dp" />
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,8 @@
 package com.study.rev.androidrevolution
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -37,8 +39,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         header.textStudentNumber.text = intent.getStringExtra(LoginActivity.KEY_STUDENT_NUMBER)
         header.textName.text = intent.getStringExtra(LoginActivity.KEY_NAME)
 
+        var pref = getSharedPreferences(LoginActivity.KEY_LOGIN_PREFERENCE, Context.MODE_PRIVATE)
+        header.textStatusMessage.text = pref.getString(SettingsFragment.KEY_STATUS_MESSAGE, "")
+
         displaySelectedFragment(HomeFragment())
     }
+
     private var  mOnKeyBackPressedListener:onKeyBackPressedListener? = null
     fun  setOnKeyBackPressedListener(listener:onKeyBackPressedListener?) {
         mOnKeyBackPressedListener = listener
