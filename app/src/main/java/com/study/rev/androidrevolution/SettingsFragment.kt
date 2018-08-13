@@ -91,6 +91,7 @@ class SettingsFragment : Fragment() {
 
             var header = this.activity?.nav_view?.getHeaderView(0)
             header?.textStatusMessage?.text = statusMessage
+            saveStatusMessage(statusMessage)
             hideKeyboard()
         }
 
