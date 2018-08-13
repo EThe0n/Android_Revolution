@@ -6,13 +6,14 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
-
+import android.net.NetworkInfo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
 import android.webkit.WebView
-
+import android.net.ConnectivityManager
+import android.widget.Toast
 
 
 class CafeFragment : Fragment() ,onKeyBackPressedListener {
@@ -29,7 +30,12 @@ class CafeFragment : Fragment() ,onKeyBackPressedListener {
 
         //왭 설정
         val webView = view!!.findViewById<WebView>(R.id.webView)
-
+        var connMgr : ConnectivityManager? = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        var networkInfo : NetworkInfo? = connMgr?.activeNetworkInfo
+        if(networkInfo != null && networkInfo.isConnected)
+        else{
+            Toast.makeText(getActivity(), "네트워크에 연결되어있지 않습니다.", Toast.LENGTH_SHORT).show()
+        }
 
         webView.settings.let {
             it.javaScriptEnabled = true
