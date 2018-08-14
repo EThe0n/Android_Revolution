@@ -47,6 +47,7 @@ class SettingsFragment : Fragment() {
         editor.commit()
     }
 
+    // 상태 메세지를 데이터에 저장함
     private fun saveStatusMessage(msg : String)
     {
         var pref = this.activity?.getSharedPreferences(LoginActivity.KEY_LOGIN_PREFERENCE, Context.MODE_PRIVATE)
@@ -56,6 +57,7 @@ class SettingsFragment : Fragment() {
         editor.commit()
     }
 
+    // 입력 시에 나온 키보드를 내리기 위한 함수
     private fun hideKeyboard()
     {
         try {
