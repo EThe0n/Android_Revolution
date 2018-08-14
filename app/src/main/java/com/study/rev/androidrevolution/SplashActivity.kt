@@ -6,13 +6,21 @@ import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 
 /**
- * A sample splash screen created by devdeeds.com
- * by Jayakrishnan P.M
+ * 메인 화면이 나오기 전 뿌려주는 스플래시 액티비티
  */
 class SplashActivity : AppCompatActivity() {
+    /**
+     * 쓰레드를 구동하기 위한 핸들러
+     */
     private var mDelayHandler: Handler? = null
+    /**
+     * 스플래시 액티비티의 종료 시간
+     */
     private val SPLASH_DELAY: Long = 1000 //1 seconds
 
+    /**
+     * 스플래시 액티비티가 돌아가는 중에 액티비티를 로딩하기 위한 쓰레드
+     */
     private val mRunnable: Runnable = Runnable {
         if (!isFinishing) {
             val intent = Intent(applicationContext, LoginActivity::class.java)
@@ -21,6 +29,9 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     *
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,6 +45,9 @@ class SplashActivity : AppCompatActivity() {
         mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
     }
 
+    /**
+     *
+     */
     public override fun onDestroy() {
         if (mDelayHandler != null) {
             mDelayHandler!!.removeCallbacks(mRunnable)

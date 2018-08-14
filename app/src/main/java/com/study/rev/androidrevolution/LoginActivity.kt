@@ -10,12 +10,34 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
     companion object {
+        /**
+         * Shared Preference에서 이름 정보를 가져오기 위한 키
+         */
         const val KEY_NAME : String = "NAME"
+
+        /**
+         * Shared Preference에서 학번 정보를 가져오기 위한 키
+         */
         const val KEY_STUDENT_NUMBER : String = "STUDENT_NUMBER"
+
+        /**
+         * Shared Preference에서 로그인 정보를 가져오기 위한 키
+         */
         const val KEY_LOGIN_PREFERENCE : String = "LOGIN_DATA"
+
+        /**
+         * Shared Preference에서 자동 로그인 설정 여부를 가져오기 위한 키
+         */
         const val KEY_IS_AUTO_LOGIN : String = "IS_AUTO_LOGIN"
     }
 
+    /**
+     * 로그인 시에 호출되는 함수
+     * 정보를 담아서 로그인 액티비티를 닫고 메인 액티비티로 이동한다.
+     *
+     * @param studentNumber 학번 정보
+     * @param name 이름 정보
+     */
     private fun login(studentNumber : String, name : String) {
         var loginInfo = Intent(this, MainActivity::class.java)
 
@@ -26,6 +48,9 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
+    /**
+     *
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)

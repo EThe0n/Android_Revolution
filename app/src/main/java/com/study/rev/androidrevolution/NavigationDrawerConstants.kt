@@ -1,5 +1,8 @@
 package com.study.rev.androidrevolution
 
+/**
+ * Navigation Drawer의 상수 목록을 모아두기 위한 클래스
+ */
 class NavigationDrawerConstants {
     companion object {
         const val TAG_HOME = "메인 화면"
