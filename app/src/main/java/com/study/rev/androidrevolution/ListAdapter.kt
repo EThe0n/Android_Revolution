@@ -33,13 +33,35 @@ class ListAdapter : ArrayAdapter<ListColumn>{
         var currentPointer : ListColumn = listSet.get(pos)
 
         if(currentPointer != null){
-            view?.view_name?.text = currentPointer.name
-            view?.view_subject?.text = currentPointer.subject
-            view?.view_borrower?.text = currentPointer.borrower
 
-            if(view?.view_borrower?.text != ""){
-                view?.setBackgroundColor(Color.parseColor("#FF0000"));
+
+            if(currentPointer.name.length > 12){
+                view?.view_name?.text = currentPointer.name.substring(0, 12) + "..."
             }
+            else{
+                view?.view_name?.text = currentPointer.name
+            }
+
+            if(currentPointer.subject.length > 5){
+                view?.view_subject?.text = currentPointer.subject.substring(0, 5) + "..."
+            }
+            else{
+                view?.view_subject?.text = currentPointer.subject
+            }
+
+            if(currentPointer.borrower.length > 3){
+                view?.view_borrower?.text = currentPointer.borrower.substring(0, 3) + "..."
+            }
+            else{
+                view?.view_borrower?.text = currentPointer.borrower
+            }
+
+            /*
+            if(view?.view_borrower?.text != ""){
+                view?.view_name?.setBackgroundColor(Color.parseColor("#FF0000"));
+                view?.view_subject?.setBackgroundColor(Color.parseColor("#FF0000"));
+                view?.view_borrower?.setBackgroundColor(Color.parseColor("#FF0000"));
+            }*/
         }
 
         return view

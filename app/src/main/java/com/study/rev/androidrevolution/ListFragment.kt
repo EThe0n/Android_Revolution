@@ -1,5 +1,6 @@
 package com.study.rev.androidrevolution
 
+import android.app.AlertDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
@@ -39,6 +40,7 @@ class ListFragment : Fragment(){
         layout_btnSearch.setOnClickListener { View -> buttonClickHandler(view)}
 
 
+
         var connMgr : ConnectivityManager? = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         var networkInfo : NetworkInfo? = connMgr?.activeNetworkInfo
 
@@ -48,7 +50,7 @@ class ListFragment : Fragment(){
         }
         else{
             layout_btnSearch.isClickable = false
-            Toast.makeText(getActivity(), "네트워크에 연결되어있지 않습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "네트워크에 연결되어있지 않습니다.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -61,10 +63,24 @@ class ListFragment : Fragment(){
             override fun onResult(obj: JSONObject) {
                 processJson(obj)
             }
-        }).execute("https://spreadsheets.google.com/tq?key=1wFrFaxr6_cn0W4H2XJESPsw2jA5eGhQTtLR2xWaeykg")
-                //.execute("https://spreadsheets.google.com/tq?key=1rKtgNrlWUJSR9uuC7w_XsgmlB8P6w9EdYBpfVKPdRR0")
+        }).execute("https://spreadsheets.google.com/tq?key=1rKtgNrlWUJSR9uuC7w_XsgmlB8P6w9EdYBpfVKPdRR0")
+                //.execute("https://spreadsheets.google.com/tq?key=1wFrFaxr6_cn0W4H2XJESPsw2jA5eGhQTtLR2xWaeykg")
+
     }
 
+    fun listViewClickEvent(data : ListColumn){
+        var dataStr : String = "제목 : " + data.name + "\n주제 : " + data.subject + "\n대여자 : "
+        if(data.borrower != ""){
+            dataStr = dataStr + data.borrower
+        }
+        else{
+            dataStr = dataStr + "없음"
+        }
+        AlertDialog.Builder(activity)
+                .setTitle("세부 정보")
+                .setMessage(dataStr)
+                .show()
+    }
 
     fun processJson(obj : JSONObject){
         try{
@@ -85,6 +101,11 @@ class ListFragment : Fragment(){
             var adapter : ListAdapter = ListAdapter(this.context, R.layout.list_column, listSet)
             layout_listview.adapter = adapter
 
+            layout_listview.setOnItemClickListener { parent, view, position, id ->
+                //Toast.makeText(activity, "Position Clicked:"+" "+position,Toast.LENGTH_SHORT).show()
+                listViewClickEvent(listSet[position])
+            }
+
 
         }catch (e : JSONException){
             e.printStackTrace()
@@ -92,7 +113,6 @@ class ListFragment : Fragment(){
             layout_btnSearch.isClickable = true
         }
     }
-
 
     fun nullToEmpty(ins : String?) : String{
         if(ins != "null") {
