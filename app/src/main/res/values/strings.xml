@@ -14,4 +14,5 @@
     <string name="club_address">대구광역시 북구 산격동 1370-1 경북대학교 IT2호관 244호 레볼루션</string>
     <string name="club_road_name_address">대구광역시 북구 대학로 80(산격동) IT2호관 244호 레볼루션</string>
     <string name="club_zip_code">41566</string>
+    <string name="map_link">https://map.naver.com/?mapmode=0&amp;lng=5d89ecc27c18e665ad945318c3a99d80&amp;pinId=16338555&amp;lat=27575ffaa043999863beec7db800f450&amp;dlevel=12&amp;enc=b64&amp;pinType=site</string>
 </resources>

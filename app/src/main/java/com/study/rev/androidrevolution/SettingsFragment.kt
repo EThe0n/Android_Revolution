@@ -68,7 +68,7 @@ class SettingsFragment : Fragment() {
     private fun signOut()
     {
         removeLoginData()
-        var intent = Intent(this.activity, LoginActivity::class.java)
+        val intent = Intent(this.activity, LoginActivity::class.java)
         startActivity(intent)
         this.activity?.finish()
     }
@@ -78,11 +78,11 @@ class SettingsFragment : Fragment() {
      */
     private fun removeLoginData()
     {
-        var pref = this.activity?.getSharedPreferences(LoginActivity.KEY_LOGIN_PREFERENCE, Context.MODE_PRIVATE)
-        var editor : SharedPreferences.Editor = pref!!.edit()
+        val pref = this.activity?.getSharedPreferences(LoginActivity.KEY_LOGIN_PREFERENCE, Context.MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = pref!!.edit()
 
         editor.clear()
-        editor.commit()
+        editor.apply()
     }
 
     /**
@@ -92,11 +92,11 @@ class SettingsFragment : Fragment() {
      */
     private fun saveStatusMessage(msg : String)
     {
-        var pref = this.activity?.getSharedPreferences(LoginActivity.KEY_LOGIN_PREFERENCE, Context.MODE_PRIVATE)
-        var editor : SharedPreferences.Editor = pref!!.edit()
+        val pref = this.activity?.getSharedPreferences(LoginActivity.KEY_LOGIN_PREFERENCE, Context.MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = pref!!.edit()
 
         editor.putString(KEY_STATUS_MESSAGE, msg)
-        editor.commit()
+        editor.apply()
     }
 
     /**
@@ -125,18 +125,18 @@ class SettingsFragment : Fragment() {
 
         // 로그아웃버튼 클릭시 나오는 다이얼로그 설정
         // 안드로이드 특성상 Negative와 Positive의 방향이 평소 쓰는 UI와 반대임
-        var builder = AlertDialog.Builder(this.activity)
+        val builder = AlertDialog.Builder(this.activity)
         builder
                 .setTitle("로그아웃")
                 .setMessage("로그아웃 하시겠습니까?")
-                .setNegativeButton("네", { dialog, id -> run {
+                .setNegativeButton("네", { _, _ -> run {
                     signOut()
                 }
                 })
-                .setPositiveButton("취소", {dialog, id ->
+                .setPositiveButton("취소", {dialog, _ ->
                     dialog.cancel()
                 })
-        var signOutDialog = builder.create()
+        val signOutDialog = builder.create()
 
         btnSignOut.setOnClickListener {
             signOutDialog.show()
@@ -144,16 +144,16 @@ class SettingsFragment : Fragment() {
 
         // 상태메세지 설정 버튼
         btnAssign.setOnClickListener {
-            var statusMessage : String = editStatusMessage.text.toString()
+            val statusMessage : String = editStatusMessage.text.toString()
 
-            var header = this.activity?.nav_view?.getHeaderView(0)
+            val header = this.activity?.nav_view?.getHeaderView(0)
             header?.textStatusMessage?.text = statusMessage
             saveStatusMessage(statusMessage)
             hideKeyboard()
         }
 
-        editStatusMessage.setOnFocusChangeListener{ view, hasFocus-> run {
-                if (view.id == editStatusMessage.id && !hasFocus) {
+        editStatusMessage.setOnFocusChangeListener{ v, hasFocus-> run {
+                if (v.id == editStatusMessage.id && !hasFocus) {
                     hideKeyboard()
                 }
             }

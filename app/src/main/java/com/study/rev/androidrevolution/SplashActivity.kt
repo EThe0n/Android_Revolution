@@ -12,7 +12,7 @@ class SplashActivity : AppCompatActivity() {
     /**
      * 쓰레드를 구동하기 위한 핸들러
      */
-    private var mDelayHandler: Handler? = null
+    private lateinit var mDelayHandler: Handler
     /**
      * 스플래시 액티비티의 종료 시간
      */
@@ -54,7 +54,7 @@ class SplashActivity : AppCompatActivity() {
         mDelayHandler = Handler()
 
         //Navigate with delay
-        mDelayHandler!!.postDelayed(mRunnable, splashDelay)
+        mDelayHandler.postDelayed(mRunnable, splashDelay)
     }
 
     /**
@@ -71,10 +71,7 @@ class SplashActivity : AppCompatActivity() {
      * If you override this method you must call through to the superclass implementation.
      */
     public override fun onDestroy() {
-        if (mDelayHandler != null) {
-            mDelayHandler!!.removeCallbacks(mRunnable)
-        }
-
+        mDelayHandler.removeCallbacks(mRunnable)
         super.onDestroy()
     }
 }

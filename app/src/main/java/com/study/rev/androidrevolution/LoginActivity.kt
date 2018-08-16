@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
      * @param name 이름 정보
      */
     private fun login(studentNumber : String, name : String) {
-        var loginInfo = Intent(this, MainActivity::class.java)
+        val loginInfo = Intent(this, MainActivity::class.java)
 
         loginInfo.putExtra(KEY_NAME, studentNumber)
         loginInfo.putExtra(KEY_STUDENT_NUMBER, name)
@@ -55,18 +55,18 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        var pref : SharedPreferences = getSharedPreferences(KEY_LOGIN_PREFERENCE, Context.MODE_PRIVATE)
-        var editor : SharedPreferences.Editor = pref.edit()
+        val pref : SharedPreferences = getSharedPreferences(KEY_LOGIN_PREFERENCE, Context.MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = pref.edit()
 
         if (pref.getBoolean(KEY_IS_AUTO_LOGIN, false)) {
-            var studentNumber : String = pref.getString(KEY_STUDENT_NUMBER, "")
-            var name : String = pref.getString(KEY_NAME, "")
+            val studentNumber : String = pref.getString(KEY_STUDENT_NUMBER, "")
+            val name : String = pref.getString(KEY_NAME, "")
             login(studentNumber, name)
         }
 
         loginButton.setOnClickListener {
-            var studentNumber : String = editStudentNumber.text.toString()
-            var name : String = editName.text.toString()
+            val studentNumber : String = editStudentNumber.text.toString()
+            val name : String = editName.text.toString()
 
             if (studentNumber.isEmpty() || name.isEmpty()) {
                 Toast.makeText(applicationContext, R.string.warning_login_information_empty, Toast.LENGTH_SHORT)
@@ -78,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
                     editor.putString(KEY_NAME, name)
                     editor.putString(KEY_STUDENT_NUMBER, studentNumber)
                     editor.putBoolean(KEY_IS_AUTO_LOGIN, true)
-                    editor.commit()
+                    editor.apply()
                 }
                 login(studentNumber, name)
             }
