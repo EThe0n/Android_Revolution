@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         displaySelectedFragment(HomeFragment())
     }
 
-    private var  mOnKeyBackPressedListener:onKeyBackPressedListener? = null
+    private var  mOnKeyBackPressedListener:onKeyBackPressedListener? = null  // 이곳에는 CAFE fRAGMENT 가들어갈예정
     fun  setOnKeyBackPressedListener(listener:onKeyBackPressedListener?) {
         mOnKeyBackPressedListener = listener
     }
