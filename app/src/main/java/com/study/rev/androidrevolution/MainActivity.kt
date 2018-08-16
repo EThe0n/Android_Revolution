@@ -46,10 +46,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         displaySelectedFragment(HomeFragment())
     }
 
-    private var  mOnKeyBackPressedListener:onKeyBackPressedListener? = null  // 이곳에는 CAFE fRAGMENT 가들어갈예정
+    /**
+     * mOnKeyBackPressedListener 에 카페  프레그먼트가 들어가 실예정
+     */
+    private var  mOnKeyBackPressedListener:onKeyBackPressedListener? = null
+
+    /**
+     * setOnKeyBackPressedListener로  cafeFragement 를 가져온다.
+     */
     fun  setOnKeyBackPressedListener(listener:onKeyBackPressedListener?) {
         mOnKeyBackPressedListener = listener
     }
+
+    /**
+     * 뒤로가기가 눌리면  mOnKeyBackPressedListener?.onBack() 가실행되서 카페 프레그먼트에서 왭뷰가  뒤로 가짐.
+     */
     override fun onBackPressed() {
 
         //var tempTime :Long= System.currentTimeMillis();
