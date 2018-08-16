@@ -27,12 +27,12 @@ class DownloadWebpageTask : AsyncTask<String, Void, String> {
     }
 
     override fun onPostExecute(result : String){
-        var start : Int = result.indexOf("{", result.indexOf("{") + 1)
-        var end : Int = result.lastIndexOf("}")
+        val start : Int = result.indexOf("{", result.indexOf("{") + 1)
+        val end : Int = result.lastIndexOf("}")
 
-        var jsonResponse : String = result.substring(start, end)
+        val jsonResponse : String = result.substring(start, end)
         try{
-            var table : JSONObject = JSONObject(jsonResponse)
+            val table : JSONObject = JSONObject(jsonResponse)
             callback.onResult(table)
         }catch (e: JSONException){
             e.printStackTrace()
@@ -45,19 +45,26 @@ class DownloadWebpageTask : AsyncTask<String, Void, String> {
         var ins : InputStream ?= null
 
         try{
-            var url : URL = URL(urlString)
-            var conn : HttpURLConnection = url.openConnection() as HttpURLConnection
+            val url : URL = URL(urlString)
+            val conn : HttpURLConnection = url.openConnection() as HttpURLConnection
 
+            conn.readTimeout = 10000
+            conn.connectTimeout = 15000
+            conn.requestMethod = "GET"
+            conn.doInput = true
+
+            /*
             conn.setReadTimeout(10000)
             conn.setConnectTimeout(15000)
             conn.setRequestMethod("GET")
             conn.setDoInput(true)
+            */
 
             conn.connect()
             var responseCode = conn.getResponseCode()
             ins = conn.getInputStream()
 
-            var contentAsString : String = convertStreamToString(ins)
+            val contentAsString : String = convertStreamToString(ins)
             return contentAsString
         }finally {
             if(ins != null)
@@ -66,8 +73,8 @@ class DownloadWebpageTask : AsyncTask<String, Void, String> {
     }
 
     fun convertStreamToString(ins : InputStream) : String{
-        var reader : BufferedReader = BufferedReader(InputStreamReader(ins))
-        var sb : StringBuilder = StringBuilder()
+        val reader : BufferedReader = BufferedReader(InputStreamReader(ins))
+        val sb : StringBuilder = StringBuilder()
 
         var line : String ?= null
 

@@ -5,14 +5,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
-import android.os.Handler
-import android.os.SystemClock
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ListView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_list.*
 import org.json.JSONArray
@@ -41,8 +37,8 @@ class ListFragment : Fragment(){
 
 
 
-        var connMgr : ConnectivityManager? = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-        var networkInfo : NetworkInfo? = connMgr?.activeNetworkInfo
+        val connMgr : ConnectivityManager? = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val networkInfo : NetworkInfo? = connMgr?.activeNetworkInfo
 
         if(networkInfo != null && networkInfo.isConnected){
             layout_btnSearch.isClickable = true
@@ -54,7 +50,7 @@ class ListFragment : Fragment(){
         }
     }
 
-    fun buttonClickHandler(view : View){
+    private fun buttonClickHandler(view : View){
         layout_btnSearch.isClickable = false
         listSet.clear()
         layout_listview.adapter = null
@@ -68,13 +64,13 @@ class ListFragment : Fragment(){
 
     }
 
-    fun listViewClickEvent(data : ListColumn){
+    private fun listViewClickEvent(data : ListColumn){
         var dataStr : String = "제목 : " + data.name + "\n주제 : " + data.subject + "\n대여자 : "
         if(data.borrower != ""){
-            dataStr = dataStr + data.borrower
+            dataStr += data.borrower
         }
         else{
-            dataStr = dataStr + "없음"
+            dataStr += "없음"
         }
         AlertDialog.Builder(activity)
                 .setTitle("세부 정보")
@@ -84,21 +80,21 @@ class ListFragment : Fragment(){
 
     fun processJson(obj : JSONObject){
         try{
-            var rows : JSONArray = obj.getJSONArray("rows")
+            val rows : JSONArray = obj.getJSONArray("rows")
 
             for(r in 0 until rows.length()){
-                var row : JSONObject = rows.getJSONObject(r)
-                var col : JSONArray = row.getJSONArray("c")
+                val row : JSONObject = rows.getJSONObject(r)
+                val col : JSONArray = row.getJSONArray("c")
 
-                var name : String = col.getJSONObject(0).getString("v")
-                var subject : String = col.getJSONObject(1).getString("v")
-                var borrower : String = nullToEmpty(col.getJSONObject(2)?.getString("v"))
+                val name : String = col.getJSONObject(0).getString("v")
+                val subject : String = col.getJSONObject(1).getString("v")
+                val borrower : String = nullToEmpty(col.getJSONObject(2)?.getString("v"))
 
-                var item : ListColumn = ListColumn(name, subject, borrower)
+                val item : ListColumn = ListColumn(name, subject, borrower)
                 listSet.add(item)
             }
 
-            var adapter : ListAdapter = ListAdapter(this.context, R.layout.list_column, listSet)
+            val adapter : ListAdapter = ListAdapter(this.context, R.layout.list_column, listSet)
             layout_listview.adapter = adapter
 
             layout_listview.setOnItemClickListener { parent, view, position, id ->
@@ -114,7 +110,7 @@ class ListFragment : Fragment(){
         }
     }
 
-    fun nullToEmpty(ins : String?) : String{
+    private fun nullToEmpty(ins : String?) : String{
         if(ins != "null") {
             return (ins as String)
         }

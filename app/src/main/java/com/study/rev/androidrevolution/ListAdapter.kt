@@ -1,9 +1,6 @@
 package com.study.rev.androidrevolution
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,35 +23,34 @@ class ListAdapter : ArrayAdapter<ListColumn>{
 
 
         if(view == null){
-            var vi : LayoutInflater = con.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val vi : LayoutInflater = con.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = vi.inflate(R.layout.list_column, null)
         }
 
-        var currentPointer : ListColumn = listSet.get(pos)
+        val currentPointer : ListColumn = listSet.get(pos)
+        val dot : String = "..."
 
-        if(currentPointer != null){
 
+        if(currentPointer.name.length > 12){
+                view?.view_name?.text = currentPointer.name.substring(0, 12) + dot
+        }
+        else{
+            view?.view_name?.text = currentPointer.name
+        }
 
-            if(currentPointer.name.length > 12){
-                view?.view_name?.text = currentPointer.name.substring(0, 12) + "..."
-            }
-            else{
-                view?.view_name?.text = currentPointer.name
-            }
+        if(currentPointer.subject.length > 5){
+            view?.view_subject?.text = currentPointer.subject.substring(0, 5) + dot
+        }
+        else{
+            view?.view_subject?.text = currentPointer.subject
+        }
 
-            if(currentPointer.subject.length > 5){
-                view?.view_subject?.text = currentPointer.subject.substring(0, 5) + "..."
-            }
-            else{
-                view?.view_subject?.text = currentPointer.subject
-            }
-
-            if(currentPointer.borrower.length > 3){
-                view?.view_borrower?.text = currentPointer.borrower.substring(0, 3) + "..."
-            }
-            else{
-                view?.view_borrower?.text = currentPointer.borrower
-            }
+        if(currentPointer.borrower.length > 3){
+            view?.view_borrower?.text = currentPointer.borrower.substring(0, 3) + dot
+        }
+        else{
+            view?.view_borrower?.text = currentPointer.borrower
+        }
 
             /*
             if(view?.view_borrower?.text != ""){
@@ -62,7 +58,7 @@ class ListAdapter : ArrayAdapter<ListColumn>{
                 view?.view_subject?.setBackgroundColor(Color.parseColor("#FF0000"));
                 view?.view_borrower?.setBackgroundColor(Color.parseColor("#FF0000"));
             }*/
-        }
+
 
         return view
     }
