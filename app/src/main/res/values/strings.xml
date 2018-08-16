@@ -9,4 +9,9 @@
     <string name="action_settings">Settings</string>
     <string name="warning_login_information_empty">학번 또는 이름을 입력해주세요</string>
     <string name="warning_login_wrong_input">학번 또는 이름을 잘못 입력했습니다.</string>
+    <string name="welcome_message_hello">안녕하세요.</string>
+    <string name="welcome_message_revolution">경북대학교 게임 제작 동아리 레볼루션입니다.</string>
+    <string name="club_address">대구광역시 북구 산격동 1370-1 경북대학교 IT2호관 244호 레볼루션</string>
+    <string name="club_road_name_address">대구광역시 북구 대학로 80(산격동) IT2호관 244호 레볼루션</string>
+    <string name="club_zip_code">41566</string>
 </resources>
