@@ -18,7 +18,7 @@ class ListAdapter : ArrayAdapter<ListColumn>{
         this.listSet = items
     }
 
-    override fun getView(pos : Int, convertView : View?, parent : ViewGroup) : View?{
+    override fun getView(pos : Int, convertView : View?, parent : ViewGroup?) : View?{
         var view : View? = convertView
 
 
@@ -27,38 +27,35 @@ class ListAdapter : ArrayAdapter<ListColumn>{
             view = vi.inflate(R.layout.list_column, null)
         }
 
-        val currentPointer : ListColumn = listSet.get(pos)
+        val currentPointer : ListColumn = listSet[pos]
         val dot : String = "..."
 
-
-        if(currentPointer.name.length > 12){
-                view?.view_name?.text = currentPointer.name.substring(0, 12) + dot
-        }
-        else{
-            view?.view_name?.text = currentPointer.name
-        }
-
-        if(currentPointer.subject.length > 5){
-            view?.view_subject?.text = currentPointer.subject.substring(0, 5) + dot
-        }
-        else{
-            view?.view_subject?.text = currentPointer.subject
+        view?.view_name?.let{
+            if(currentPointer.name.length > 12) {
+                it.text = currentPointer.name.substring(0, 12) + dot
+            }
+            else {
+                it.text = currentPointer.name
+            }
         }
 
-        if(currentPointer.borrower.length > 3){
-            view?.view_borrower?.text = currentPointer.borrower.substring(0, 3) + dot
-        }
-        else{
-            view?.view_borrower?.text = currentPointer.borrower
+        view?.view_subject?.let {
+            if(currentPointer.subject.length > 5){
+                it.text = currentPointer.subject.substring(0, 5) + dot
+            }
+            else{
+                it.text = currentPointer.subject
+            }
         }
 
-            /*
-            if(view?.view_borrower?.text != ""){
-                view?.view_name?.setBackgroundColor(Color.parseColor("#FF0000"));
-                view?.view_subject?.setBackgroundColor(Color.parseColor("#FF0000"));
-                view?.view_borrower?.setBackgroundColor(Color.parseColor("#FF0000"));
-            }*/
-
+        view?.view_borrower?.let {
+            if(currentPointer.borrower.length > 3){
+                it.text = currentPointer.borrower.substring(0, 3) + dot
+            }
+            else{
+                it.text = currentPointer.borrower
+            }
+        }
 
         return view
     }

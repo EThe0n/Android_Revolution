@@ -36,17 +36,17 @@ class CafeFragment : Fragment(), OnKeyBackPressedListener {
      *  CookieSyncManager와 롤리팝 이전 에서만 사용하며 이후에는 CookieManager로 통합된다.
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view: View? = inflater.inflate(R.layout.fragment_cafe, container, false)
+        val view: View? = inflater.inflate(R.layout.fragment_cafe, container, false)
 
         //왭 설정
         val webView = view!!.findViewById<WebView>(R.id.webView)
 
         // 네트워크 확인 하여 연결 안되었을시 알려주는
-        var connMgr: ConnectivityManager? = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-        var networkInfo: NetworkInfo? = connMgr?.activeNetworkInfo
+        val connMgr: ConnectivityManager? = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val networkInfo: NetworkInfo? = connMgr?.activeNetworkInfo
         if (networkInfo != null && networkInfo.isConnected) {
         } else {
-            Toast.makeText(getActivity(), "네트워크에 연결되어있지 않습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity?.applicationContext, "네트워크에 연결되어있지 않습니다.", Toast.LENGTH_SHORT).show()
         }
 
         //네트워크 확인 하여 연결 안되었을시 알려주는
@@ -70,13 +70,6 @@ class CafeFragment : Fragment(), OnKeyBackPressedListener {
 
         // 왭뷰 클라이언트를 정의  여기서 함수들을  오버라이드 해서 왭 기능을 조금씩 수정 합니다,
         webView.webViewClient = object : WebViewClient() {
-
-            // 로딩시 불려지는함수
-            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-
-                return super.shouldOverrideUrlLoading(view, request)
-            }
-
             //페이지가 끝날때 불려지는함수
             override fun onPageFinished(view: WebView?, url: String?) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -84,18 +77,14 @@ class CafeFragment : Fragment(), OnKeyBackPressedListener {
                 } else {
                     CookieManager.getInstance().flush() //  쿠키 싱므를 맞춰주는 현재버전방법
                 }
-                // UMLView.text = view!!.url
+
                 super.onPageFinished(view, url)
             }
         }
 
-
         val cookieManager = CookieManager.getInstance()
         cookieManager.setAcceptCookie(true)  //
         webView.loadUrl("https://cafe.naver.com/rev2010")
-
-        // UMLView.movementMethod = ScrollingMovementMethod()
-        // UMLView.text = webView.url
 
         return view
     }
@@ -129,7 +118,7 @@ class CafeFragment : Fragment(), OnKeyBackPressedListener {
 
     /**
      * Resume 되면
-     *  구버전을우한 키고클떄 싱크 맞추는 기능 싱크를 시작함
+     *  구버전을 위한 키고 클떄 싱크 맞추는 기능 싱크를 시작함
      */
     override fun onResume() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {

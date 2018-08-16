@@ -46,7 +46,7 @@ class ListFragment : Fragment(){
         }
         else{
             layout_btnSearch.isClickable = false
-            Toast.makeText(activity, "네트워크에 연결되어있지 않습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity?.applicationContext, "네트워크에 연결되어있지 않습니다.", Toast.LENGTH_SHORT).show()
         }
     }
 
