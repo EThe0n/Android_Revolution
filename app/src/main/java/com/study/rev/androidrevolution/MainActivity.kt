@@ -1,10 +1,7 @@
 package com.study.rev.androidrevolution
 
 import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -12,17 +9,11 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_cafe.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    val FINISH_INTERVAL_TIME = 2000;
-    private var  backPressedTime : Long = 0;
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,11 +27,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
         nav_view.setCheckedItem(R.id.nav_home)
 
-        var header = nav_view.getHeaderView(0)
+        val header = nav_view.getHeaderView(0)
         header.textStudentNumber.text = intent.getStringExtra(LoginActivity.KEY_STUDENT_NUMBER)
         header.textName.text = intent.getStringExtra(LoginActivity.KEY_NAME)
 
-        var pref = getSharedPreferences(LoginActivity.KEY_LOGIN_PREFERENCE, Context.MODE_PRIVATE)
+        val pref = getSharedPreferences(LoginActivity.KEY_LOGIN_PREFERENCE, Context.MODE_PRIVATE)
         header.textStatusMessage.text = pref.getString(SettingsFragment.KEY_STATUS_MESSAGE, "")
 
         displaySelectedFragment(HomeFragment())
@@ -59,13 +50,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     /**
-     * 뒤로가기가 눌리면  mOnKeyBackPressedListener?.onBack() 가실행되서 카페 프레그먼트에서 왭뷰가  뒤로 가짐.
+     * 뒤로 가기 버튼을 눌렀을 때 실행되는 함수
+     * 1. navigation drawer가 열려있는 경우에는 navigation drawer를 닫는다
+     * 2. webview에서 뒤로 갈 수 있는 경우에는 webview에서 뒤로 가기를 실행한다
+     * 3. 앱을 종료한다
+     * 위의 순서대로 진행된다
      */
     override fun onBackPressed() {
-
-        //var tempTime :Long= System.currentTimeMillis();
-        //var intervalTime :Long = tempTime - backPressedTime;
-
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         }
@@ -76,14 +67,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         {
             super.onBackPressed()
         }
-        ///backPressedTime = tempTime
-        //Toast.makeText(applicationContext, "한번 더 뒤로가기 누르면 꺼버린다.", Toast.LENGTH_SHORT).show()
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
@@ -91,8 +77,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
         }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
