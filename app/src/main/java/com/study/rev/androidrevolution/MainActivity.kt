@@ -47,14 +47,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     /**
-     * mOnKeyBackPressedListener 에 카페  프레그먼트가 들어가 실예정
+     * mOnKeyBackPressedListener 에 카페  프레그먼트가 들어간다.
      */
-    private var  mOnKeyBackPressedListener:onKeyBackPressedListener? = null
+    private var  mOnKeyBackPressedListener:OnKeyBackPressedListener? = null
 
     /**
      * setOnKeyBackPressedListener로  cafeFragement 를 가져온다.
      */
-    fun  setOnKeyBackPressedListener(listener:onKeyBackPressedListener?) {
+    fun  setOnKeyBackPressedListener(listener:OnKeyBackPressedListener?) {
         mOnKeyBackPressedListener = listener
     }
 

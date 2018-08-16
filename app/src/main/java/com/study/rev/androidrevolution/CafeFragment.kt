@@ -1,7 +1,6 @@
 package com.study.rev.androidrevolution
 
 
-import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -21,7 +20,7 @@ import android.widget.Toast
  *  - onBack 함수를 해당 클래스 안에서 override 하여 main Activity 에서 onKeyBackPressedListener 변수를 만들어서
  *    그변수의 onBack()함수를 호출하여 페이지를 뒤로 넘긴다.
  */
-class CafeFragment : Fragment(), onKeyBackPressedListener {
+class CafeFragment : Fragment(), OnKeyBackPressedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,8 +122,8 @@ class CafeFragment : Fragment(), onKeyBackPressedListener {
 
     override fun onAttach(context: Context?) {  //
         super.onAttach(context)
-        var MainActivity = activity as MainActivity
-        MainActivity.setOnKeyBackPressedListener(this)
+        val mMainActivity = activity as MainActivity
+        mMainActivity.setOnKeyBackPressedListener(this)
     }
 
 
