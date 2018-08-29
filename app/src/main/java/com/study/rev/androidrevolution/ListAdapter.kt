@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.list_column.view.*
 
+/**
+ * listview parsing을 위한 adapter
+ */
 class ListAdapter : ArrayAdapter<ListColumn>{
     var con : Context
     var listSet : ArrayList<ListColumn>
@@ -20,7 +23,6 @@ class ListAdapter : ArrayAdapter<ListColumn>{
 
     override fun getView(pos : Int, convertView : View?, parent : ViewGroup?) : View?{
         var view : View? = convertView
-
 
         if(view == null){
             val vi : LayoutInflater = con.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -56,6 +58,12 @@ class ListAdapter : ArrayAdapter<ListColumn>{
                 it.text = currentPointer.borrower
             }
         }
+<<<<<<< HEAD
+        else{
+            view?.view_borrower?.text = currentPointer.borrower
+        }
+=======
+>>>>>>> origin/master
 
         return view
     }

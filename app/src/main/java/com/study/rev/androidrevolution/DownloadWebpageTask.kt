@@ -11,6 +11,9 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
+/**
+ * Json 파일 download 및 처리를 위한 class
+ */
 class DownloadWebpageTask : AsyncTask<String, Void, String> {
     var callback : AsyncResult
 
@@ -26,6 +29,10 @@ class DownloadWebpageTask : AsyncTask<String, Void, String> {
         }
     }
 
+    /**
+     * Json 파일에서 실제로 사용될 string을 추출
+     * @param result String
+     */
     override fun onPostExecute(result : String){
         val start : Int = result.indexOf("{", result.indexOf("{") + 1)
         val end : Int = result.lastIndexOf("}")
@@ -40,6 +47,10 @@ class DownloadWebpageTask : AsyncTask<String, Void, String> {
     }
 
 
+    /**
+     * 주어진 url로부터 data를 download
+     * @param urlString String
+     */
     @Throws(IOException::class)
     fun downloadUrl(urlString : String) : String{
         var ins : InputStream ?= null
@@ -52,13 +63,6 @@ class DownloadWebpageTask : AsyncTask<String, Void, String> {
             conn.connectTimeout = 15000
             conn.requestMethod = "GET"
             conn.doInput = true
-
-            /*
-            conn.setReadTimeout(10000)
-            conn.setConnectTimeout(15000)
-            conn.setRequestMethod("GET")
-            conn.setDoInput(true)
-            */
 
             conn.connect()
             var responseCode = conn.getResponseCode()

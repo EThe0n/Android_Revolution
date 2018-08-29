@@ -15,6 +15,9 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
+/**
+ * 구글 시트의 데이터를 가져와 화면에 출력해주는 fragment
+ */
 class ListFragment : Fragment(){
 
     var listSet : ArrayList<ListColumn> = ArrayList<ListColumn>()
@@ -25,17 +28,21 @@ class ListFragment : Fragment(){
 
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return  inflater.inflate(R.layout.fragment_list, container, false)
     }
 
+    /**
+     * Initialization을 위한 함수
+     * Event listener setting
+     * Network connection check
+     * @param view View
+     * @param savedInstanceState Bundle
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         layout_btnSearch.setOnClickListener { View -> buttonClickHandler(view)}
-
-
 
         val connMgr : ConnectivityManager? = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         val networkInfo : NetworkInfo? = connMgr?.activeNetworkInfo
@@ -50,6 +57,11 @@ class ListFragment : Fragment(){
         }
     }
 
+    /**
+     * Button에 사용하는 Event listener
+     * "https://spreadsheets.google.com/tq?key=키값" url을 통해 json 파일을 받아 처리
+     * @param view View
+     */
     private fun buttonClickHandler(view : View){
         layout_btnSearch.isClickable = false
         listSet.clear()
@@ -60,10 +72,14 @@ class ListFragment : Fragment(){
                 processJson(obj)
             }
         }).execute("https://spreadsheets.google.com/tq?key=1rKtgNrlWUJSR9uuC7w_XsgmlB8P6w9EdYBpfVKPdRR0")
-                //.execute("https://spreadsheets.google.com/tq?key=1wFrFaxr6_cn0W4H2XJESPsw2jA5eGhQTtLR2xWaeykg")
+
 
     }
 
+    /**
+     * listview에서 각 row를 누를 시 세부 정보를 띄워주는 함수
+     * @param data ListColumn : row에 들어있는 data
+     */
     private fun listViewClickEvent(data : ListColumn){
         var dataStr : String = "제목 : " + data.name + "\n주제 : " + data.subject + "\n대여자 : "
         if(data.borrower != ""){
@@ -78,6 +94,13 @@ class ListFragment : Fragment(){
                 .show()
     }
 
+    /**
+     * Json 파일을 처리하는 함수
+     * row col로 쪼개어 하나의 ListColumn object로 만들어 ArrayList에 추가
+     * 화면에 출력하기 위한 Adapter에 access
+     * listview의 row에 event listener setting
+     * @param obj JSONObject
+     */
     fun processJson(obj : JSONObject){
         try{
             val rows : JSONArray = obj.getJSONArray("rows")
@@ -110,6 +133,10 @@ class ListFragment : Fragment(){
         }
     }
 
+    /**
+     * null을 공백으로 바꾸기 위한 함수
+     * @param ins String : input string
+     */
     private fun nullToEmpty(ins : String?) : String{
         if(ins != "null") {
             return (ins as String)
